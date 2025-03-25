@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Classes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Available Classes</h1>
+
+        <table>
+            <tr>
+                <th>Class Name</th>
+                <th>Time</th>
+                {% if role == 'staff' %}  <!-- Staff can see Edit/Delete -->
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+            {% for class_item in classes %}
+            <tr>
+                <td>{{ class_item[1] }}</td>
+                <td>{{ class_item[2] }}</td>
+                
+                {% if role == 'staff' %}
+                <td>
+                    <!-- Edit Button -->
+                    <a href="{{ url_for('edit_class', class_id=class_item[0]) }}" class="button">Edit</a>
+
+                    <!-- Delete Button -->
+                    <form action="{{ url_for('delete_class_admin', class_id=class_item[0]) }}" method="POST" style="display:inline;">
+                      <button type="submit" class="button delete-btn" onclick="return confirm('Are you sure you want to delete this class?');">
+                          Delete
+                      </button>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+
+        {% if role == 'staff' %}
+            <a href="{{ url_for('add_class') }}" class="button">Add New Class</a>
+        {% endif %}
+        
+        <br>
+        <a href="{{ url_for('dashboard') }}" class="button">Back to Dashboard</a>
+    </div>
+</body>
+</html>
+

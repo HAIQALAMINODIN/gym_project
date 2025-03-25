@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ username }}!</h1>
+        {% if role == 'staff' %}
+            <a href="{{ url_for('view_members') }}" class="button">View Members</a>
+            <a href="{{ url_for('view_classes') }}" class="button">View Classes</a>
+            <a href="{{ url_for('add_class') }}" class="button">Add Class</a>
+        {% endif %}
+        {% if role == 'member' %}
+            <a href="{{ url_for('view_classes') }}" class="button">View Classes</a>
+            <a href="{{ url_for('register_class', member_id=session['user_id']) }}" class="button">Register Class</a>
+            <a href="{{ url_for('my_classes', member_id=session['user_id']) }}" class="button">My Classes</a>
+        {% endif %}
+        <a href="{{ url_for('logout') }}" class="button">Logout</a>
+    </div>
+</body>
+</html>

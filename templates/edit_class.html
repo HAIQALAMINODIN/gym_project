@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Class</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Class</h1>
+        <form action="{{ url_for('edit_class', class_id=class_data[0]) }}" method="POST">
+            <label>Class Name:</label>
+            <input type="text" name="class_name" value="{{ class_data[1] }}" required>
+
+            <label>Class Time:</label>
+            <input type="text" name="class_time" value="{{ class_data[2] }}" required>
+
+            <button type="submit">Update Class</button>
+        </form>
+        <br>
+        <a href="{{ url_for('view_classes') }}" class="button">Back to Classes</a>
+    </div>
+</body>
+</html>
+
